@@ -1,39 +1,37 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Scanner;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // Welcome Message
+        Scanner scanner = new Scanner(System.in);
+        HashSet<String> bogieIds = new HashSet<>();
+
         System.out.println("=== Train Consist Management App ===");
+        System.out.println("UC3: Track Unique Bogie IDs");
 
-        // Create ArrayList for passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        while (true) {
+            System.out.print("Enter Bogie ID (or type 'exit' to stop): ");
+            String input = scanner.nextLine();
 
-        // Adding passenger bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+            if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
 
-        System.out.println("\nPassenger bogies after addition:");
-        System.out.println(passengerBogies);
-
-        // Removing a bogie
-        passengerBogies.remove("AC Chair");
-
-        System.out.println("\nPassenger bogies after removal of AC Chair:");
-        System.out.println(passengerBogies);
-
-        // Checking existence
-        if (passengerBogies.contains("Sleeper")) {
-            System.out.println("\nSleeper bogie exists in the train.");
-        } else {
-            System.out.println("\nSleeper bogie does not exist in the train.");
+            if (bogieIds.contains(input)) {
+                System.out.println("Error: Duplicate Bogie ID not allowed!");
+            } else {
+                bogieIds.add(input);
+                System.out.println("Bogie ID added successfully.");
+            }
         }
 
-        // Final state
-        System.out.println("\nFinal passenger bogie list:");
-        System.out.println(passengerBogies);
+        System.out.println("\nFinal Unique Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
+        }
+
+        scanner.close();
     }
 }
