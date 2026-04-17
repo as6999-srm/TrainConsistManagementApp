@@ -1,15 +1,18 @@
-import java.util.HashSet;
 import java.util.Scanner;
+import java.util.TreeSet;
+import java.util.SortedSet;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        HashSet<String> bogieIds = new HashSet<>();
+
+        // TreeSet maintains sorted order + uniqueness
+        SortedSet<String> bogieIds = new TreeSet<>();
 
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("UC3: Track Unique Bogie IDs");
+        System.out.println("UC4: Maintain Ordered Bogie IDs (TreeSet)\n");
 
         while (true) {
             System.out.print("Enter Bogie ID (or type 'exit' to stop): ");
@@ -19,15 +22,14 @@ public class TrainConsistManagementApp {
                 break;
             }
 
-            if (bogieIds.contains(input)) {
+            if (!bogieIds.add(input)) {
                 System.out.println("Error: Duplicate Bogie ID not allowed!");
             } else {
-                bogieIds.add(input);
                 System.out.println("Bogie ID added successfully.");
             }
         }
 
-        System.out.println("\nFinal Unique Bogie IDs:");
+        System.out.println("\nSorted Bogie IDs (Train Order):");
         for (String id : bogieIds) {
             System.out.println(id);
         }
