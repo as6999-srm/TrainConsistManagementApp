@@ -1,39 +1,29 @@
-import java.util.Scanner;
-import java.util.TreeSet;
-import java.util.SortedSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-
-        // TreeSet maintains sorted order + uniqueness
-        SortedSet<String> bogieIds = new TreeSet<>();
+        // LinkedHashSet maintains insertion order + uniqueness
+        Set<String> trainFormation = new LinkedHashSet<>();
 
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("UC4: Maintain Ordered Bogie IDs (TreeSet)\n");
+        System.out.println("UC5: Preserve Insertion Order of Bogies\n");
 
-        while (true) {
-            System.out.print("Enter Bogie ID (or type 'exit' to stop): ");
-            String input = scanner.nextLine();
+        // Adding bogies
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-            if (input.equalsIgnoreCase("exit")) {
-                break;
-            }
+        // Attempt to add duplicate
+        trainFormation.add("Sleeper"); // will be ignored automatically
 
-            if (!bogieIds.add(input)) {
-                System.out.println("Error: Duplicate Bogie ID not allowed!");
-            } else {
-                System.out.println("Bogie ID added successfully.");
-            }
+        // Display final formation
+        System.out.println("Final Train Formation:");
+        for (String bogie : trainFormation) {
+            System.out.println(bogie);
         }
-
-        System.out.println("\nSorted Bogie IDs (Train Order):");
-        for (String id : bogieIds) {
-            System.out.println(id);
-        }
-
-        scanner.close();
     }
 }
