@@ -1,18 +1,17 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 class Bogie {
     String name;
     int capacity;
 
-    // Constructor
     Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    // Display method
     public String toString() {
         return name + " -> " + capacity;
     }
@@ -23,21 +22,31 @@ public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("UC7: Sort Bogies by Capacity\n");
+        System.out.println("UC9: Group Bogies by Type\n");
 
-        // List to store bogies
+        // Reuse list
         List<Bogie> bogies = new ArrayList<>();
-
-        // Adding bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 54));
+        bogies.add(new Bogie("Sleeper", 70));
         bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("AC Chair", 56));
 
-        // Sort using Comparator (ascending order)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        // Group by bogie name/type
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
 
-        // Display sorted sbogies
-        System.out.println("Bogies Sorted by Capacity:");
+        // Display grouped result
+        System.out.println("Grouped Bogies:");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println("\nType: " + entry.getKey());
+            for (Bogie b : entry.getValue()) {
+                System.out.println("  " + b);
+            }
+        }
+
+        // Show original list unchanged
+        System.out.println("\nOriginal Bogie List:");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
