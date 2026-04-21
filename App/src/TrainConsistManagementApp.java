@@ -1,24 +1,40 @@
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class TrainConsistManagementApp {
+
+    // Linear Search method
+    public static boolean linearSearch(String[] bogieIds, String key) {
+        for (String id : bogieIds) {
+            if (id.equals(key)) {
+                return true; // match found
+            }
+        }
+        return false; // not found
+    }
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("UC17: Sort Bogie Names Using Arrays.sort()\n");
+        System.out.println("UC18: Linear Search for Bogie ID\n");
 
-        // Array of bogie names
-        String[] bogieNames = {
-                "Sleeper", "AC Chair", "First Class", "General", "Luxury"
-        };
+        // Sample bogie IDs (unsorted)
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        System.out.println("Before Sorting:");
-        System.out.println(Arrays.toString(bogieNames));
+        Scanner scanner = new Scanner(System.in);
 
-        // Sorting using built-in method
-        Arrays.sort(bogieNames);
+        System.out.print("Enter Bogie ID to search: ");
+        String searchKey = scanner.nextLine();
 
-        System.out.println("\nAfter Sorting:");
-        System.out.println(Arrays.toString(bogieNames));
+        // Perform search
+        boolean found = linearSearch(bogieIds, searchKey);
+
+        // Display result
+        if (found) {
+            System.out.println("Bogie ID " + searchKey + " FOUND in train.");
+        } else {
+            System.out.println("Bogie ID " + searchKey + " NOT FOUND.");
+        }
+
+        scanner.close();
     }
 }
