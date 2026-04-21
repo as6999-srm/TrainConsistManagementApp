@@ -1,29 +1,50 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class Bogie {
+    String name;
+    int capacity;
+
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String toString() {
+        return name + " -> " + capacity;
+    }
+}
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // LinkedHashSet maintains insertion order + uniqueness
-        Set<String> trainFormation = new LinkedHashSet<>();
-
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("UC5: Preserve Insertion Order of Bogies\n");
+        System.out.println("UC8: Filter Passenger Bogies Using Streams\n");
 
-        // Adding bogies
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        // Reusing list (like UC7)
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 54));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Luxury", 80));
 
-        // Attempt to add duplicate
-        trainFormation.add("Sleeper"); // will be ignored automatically
+        // Filter bogies with capacity > 60
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        // Display final formation
-        System.out.println("Final Train Formation:");
-        for (String bogie : trainFormation) {
-            System.out.println(bogie);
+        // Display filtered bogies
+        System.out.println("Bogies with capacity > 60:");
+        for (Bogie b : filteredBogies) {
+            System.out.println(b);
+        }
+
+        // Show original list remains unchanged
+        System.out.println("\nOriginal Bogie List:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
         }
     }
 }
