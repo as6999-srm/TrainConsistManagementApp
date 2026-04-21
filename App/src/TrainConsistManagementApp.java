@@ -1,66 +1,49 @@
-// Custom Runtime Exception
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+public class TrainConsistManagementApp {
 
-// Goods Bogie class
-class GoodsBogie {
-    String type;   // Rectangular, Cylindrical
-    String cargo;
+    // Bubble Sort method
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
 
-    GoodsBogie(String type) {
-        this.type = type;
-    }
+        for (int i = 0; i < n - 1; i++) {
+            // Optimization: track if swap happens
+            boolean swapped = false;
 
-    // Method to assign cargo safely
-    public void assignCargo(String cargo) {
-        try {
-            // Rule: Rectangular cannot carry Petroleum
-            if (type.equalsIgnoreCase("Rectangular") && cargo.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("Unsafe: Rectangular bogie cannot carry Petroleum");
+            for (int j = 0; j < n - i - 1; j++) {
+                // Compare adjacent elements
+                if (arr[j] > arr[j + 1]) {
+                    // Swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+
+                    swapped = true;
+                }
             }
 
-            this.cargo = cargo;
-            System.out.println("Cargo assigned successfully to " + type + " bogie: " + cargo);
-
-        } catch (CargoSafetyException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("Assignment attempt completed for " + type + " bogie.\n");
+            // If no swaps → already sorted
+            if (!swapped) break;
         }
     }
-
-    public String toString() {
-        return type + " -> " + (cargo != null ? cargo : "No Cargo");
-    }
-}
-
-public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("UC15: Safe Cargo Assignment Using try-catch-finally\n");
+        System.out.println("UC16: Bubble Sort for Bogie Capacities\n");
 
-        // Create bogies
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        // Example capacities
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        // Safe assignment
-        b1.assignCargo("Petroleum");
+        System.out.println("Before Sorting:");
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
 
-        // Unsafe assignment
-        b2.assignCargo("Petroleum");
+        // Apply Bubble Sort
+        bubbleSort(capacities);
 
-        // Another valid assignment to show program continues
-        b2.assignCargo("Coal");
-
-        // Final state
-        System.out.println("Final Bogie States:");
-        System.out.println(b1);
-        System.out.println(b2);
+        System.out.println("\n\nAfter Sorting:");
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
     }
 }
